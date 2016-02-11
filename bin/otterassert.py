@@ -22,52 +22,52 @@ class OtterAssert:
 
 
     """Checks for equality of the two arguments."""
-    assertEqual(expected, actual):
+    assertEqual(self, expected, actual):
         pass
 
 
     """Checks for inequality of the two arguments."""
-    assertNotEqual(expected, actual):
+    assertNotEqual(self, expected, actual):
         pass
 
 
     """Checks whether the argument is the boolean value False."""
-    assertFalse(expected):
+    assertFalse(self, expected):
         pass
 
 
     """Checks whether the argument is in the collection."""
-    assertIn(expected, collection):
+    assertIn(self, expected, collection):
         pass
 
 
     """Checks whether the argument is not in the collection."""
-    assertNotIn(expected, collection):
+    assertNotIn(self, expected, collection):
         pass
 
 
     """Checks whether the value is the expected."""
-    assertIs(expected, actual):
+    assertIs(self, expected, actual):
         pass
 
 
     """Checks whether the value is not the expected."""
-    assertIsNot(expected, actual):
+    assertIsNot(self, expected, actual):
         pass
 
 
     """Checks whether the argument is None."""
-    assertIsNone(expected):
+    assertIsNone(self, expected):
         pass
 
 
     """Checks whether the argument is not None."""
-    assertIsNotNone(expected):
+    assertIsNotNone(self, expected):
         pass
 
 
     """Checks whether the function 'func' raises an exception of the type 'exception'."""
-    assertRaises(exception, func, *args):
+    assertRaises(self, exception, func, *args):
         pass
 
 

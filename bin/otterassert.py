@@ -1,3 +1,12 @@
+#
+# I'm setting this file up for where I'm planning to go with it.
+# I took a list of assert methods from https://github.com/zillolo/vsut-python
+# because that was a good start and set them up with pass statements and basic
+# comments. I will be expanding on this soon. I'm also intending to expland
+# on the docstrings to provide more useful information for each method and 
+# the class as a whole.
+#
+
 """Assert defines the Assert methods and the behaviors that are used by them."""
 class OtterAssert:
 

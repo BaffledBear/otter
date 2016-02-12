@@ -7,21 +7,31 @@
 # the class as a whole.
 #
 
+
 """
 asserts.py defines the assert methods and the behaviors that are used by them.
 """
+
+
+"""
+Logs the results of an assert.
+"""
+
+
+def log_results(runner, result, testCase):
+    if result:
+        runner.increment_success_count()
+        runner.append_passed_test(testCase)
+    else:
+        runner.increment_fail_count()
+        runner.append_failed_test(testCase)
 
 # TODO - Update comments for docstring use
 """Checks whether the argument is the boolean value True."""
 
 
 def assertTrue(runner, statusBool, testCase):
-    if statusBool:
-        runner.increment_success_count()
-        runner.append_passed_test(testCase)
-    else:
-        runner.increment_fail_count()
-        runner.append_failed_test(testCase)
+    log_results(runner, statusBool, testCase)
 
 
 """

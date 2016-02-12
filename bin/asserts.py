@@ -32,6 +32,7 @@ Checks for equality of the two arguments.
 def assertEqual(runner, expected, actual):
     pass
 
+
 """
 Checks for inequality of the two arguments.
 """
@@ -39,6 +40,7 @@ Checks for inequality of the two arguments.
 
 def assertNotEqual(runner, expected, actual):
     pass
+
 
 """
 Checks whether the argument is the boolean value False.
@@ -48,6 +50,7 @@ Checks whether the argument is the boolean value False.
 def assertFalse(runner, expected):
     pass
 
+
 """
 Checks whether the argument is in the collection.
 """
@@ -55,6 +58,7 @@ Checks whether the argument is in the collection.
 
 def assertIn(runner, expected, collection):
     pass
+
 
 """
 Checks whether the argument is not in the collection.
@@ -64,6 +68,7 @@ Checks whether the argument is not in the collection.
 def assertNotIn(runner, expected, collection):
     pass
 
+
 """
 Checks whether the value is the expected.
 """
@@ -71,6 +76,7 @@ Checks whether the value is the expected.
 
 def assertIs(runner, expected, actual):
     pass
+
 
 """
 Checks whether the value is not the expected.
@@ -80,6 +86,7 @@ Checks whether the value is not the expected.
 def assertIsNot(runner, expected, actual):
     pass
 
+
 """
 Checks whether the argument is None.
 """
@@ -88,6 +95,7 @@ Checks whether the argument is None.
 def assertIsNone(runner, expected):
     pass
 
+
 """
 Checks whether the argument is not None.
 """
@@ -95,6 +103,7 @@ Checks whether the argument is not None.
 
 def assertIsNotNone(runner, expected):
     pass
+
 
 """
 Checks whether the function 'func' raises an exception of the type

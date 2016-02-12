@@ -11,7 +11,7 @@
 from asserts import assertTrue
 
 
-class Runner:
+class Otter:
 
     __successCount = 0
     __failCount = 0
@@ -27,11 +27,8 @@ class Runner:
         pass
 
     def run(self):
-        # otter = OtterAssert(self)
         for case in self.testCases:
-            # print(case)
             assertTrue(self, case["condition"], case["description"])
-            # otter.assertTrue(case["condition"], case["description"])
         self.print_results()
 
     def print_results(self):
@@ -61,5 +58,5 @@ class Runner:
     def append_failed_test(self, test):
         self.__failedTests.append(test)
 
-test = Runner()
+test = Otter()
 test.run()

@@ -17,18 +17,14 @@ class Otter:
     __failCount = 0
     __passedTests = []
     __failedTests = []
-    testCases = [
-        {"condition": True, "description": "case 1"},
-        {"condition": False, "description": "case 2"},
-        {"condition": True, "description": "case 3"},
-    ]
+    testCases = []
 
-    def __init__(self):
-        pass
+    def __init__(self, testCases):
+        self.testCases = testCases
 
     def run(self):
-        for case in self.testCases:
-            assertTrue(self, case["condition"], case["description"])
+        for case in self.testCases.all:
+            self.testCases.all[case]()
         self.print_results()
 
     def print_results(self):
@@ -58,5 +54,38 @@ class Otter:
     def append_failed_test(self, test):
         self.__failedTests.append(test)
 
-test = Otter()
-test.run()
+
+def make_test_list():
+    """
+    make_test_list will pick up any @test decorators and add the function to a.
+    list. The list is then used as part of the Otter object instantiation to
+    give a list of test cases to be run.
+    """
+    testList = {}
+
+    def list_builder(func):
+        testList[func.__name__] = func
+        return func
+    list_builder.all = testList
+    return list_builder
+
+test = make_test_list()
+
+
+@test
+def case_1():
+    assertTrue(otter, True, "Case 1")
+
+
+@test
+def case_2():
+    assertTrue(otter, False, "Case 2")
+
+
+@test
+def case_3():
+    assertTrue(otter, True, "Case 3")
+
+
+otter = Otter(test)
+otter.run()

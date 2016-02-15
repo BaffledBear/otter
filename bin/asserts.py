@@ -31,9 +31,6 @@ def assertTrue(runner, statusBool, testCase):
     log_results(runner, statusBool, testCase)
 
 
-
-
-
 def assertEqual(runner, expected, actual):
     """Checks for equality of the two arguments."""
     pass

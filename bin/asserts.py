@@ -13,12 +13,10 @@ asserts.py defines the assert methods and the behaviors that are used by them.
 """
 
 
-"""
-Logs the results of an assert.
-"""
-
-
 def log_results(runner, result, testCase):
+    """
+    Logs the results of an assert.
+    """
     if result:
         runner.increment_success_count()
         runner.append_passed_test(testCase)
@@ -26,100 +24,64 @@ def log_results(runner, result, testCase):
         runner.increment_fail_count()
         runner.append_failed_test(testCase)
 
+
 # TODO - Update comments for docstring use
-"""Checks whether the argument is the boolean value True."""
-
-
 def assertTrue(runner, statusBool, testCase):
+    """Checks whether the argument is the boolean value True."""
     log_results(runner, statusBool, testCase)
 
 
-"""
-Checks for equality of the two arguments.
-"""
+
 
 
 def assertEqual(runner, expected, actual):
+    """Checks for equality of the two arguments."""
     pass
-
-
-"""
-Checks for inequality of the two arguments.
-"""
 
 
 def assertNotEqual(runner, expected, actual):
+    """Checks for inequality of the two arguments."""
     pass
-
-
-"""
-Checks whether the argument is the boolean value False.
-"""
 
 
 def assertFalse(runner, expected):
+    """Checks whether the argument is the boolean value False."""
     pass
-
-
-"""
-Checks whether the argument is in the collection.
-"""
 
 
 def assertIn(runner, expected, collection):
+    """Checks whether the argument is in the collection."""
     pass
-
-
-"""
-Checks whether the argument is not in the collection.
-"""
 
 
 def assertNotIn(runner, expected, collection):
+    """Checks whether the argument is not in the collection."""
     pass
-
-
-"""
-Checks whether the value is the expected.
-"""
 
 
 def assertIs(runner, expected, actual):
+    """Checks whether the value is the expected."""
     pass
-
-
-"""
-Checks whether the value is not the expected.
-"""
 
 
 def assertIsNot(runner, expected, actual):
+    """Checks whether the value is not the expected."""
     pass
-
-
-"""
-Checks whether the argument is None.
-"""
 
 
 def assertIsNone(runner, expected):
+    """Checks whether the argument is None."""
     pass
-
-
-"""
-Checks whether the argument is not None.
-"""
 
 
 def assertIsNotNone(runner, expected):
+    """Checks whether the argument is not None."""
     pass
 
 
-"""
-Checks whether the function 'func' raises an exception of the type
-exception'.
-"""
-
-
 def assertRaises(runner, exception, func, *args):
+    """
+    Checks whether the function 'func' raises an exception of the type
+    exception'.
+    """
     pass

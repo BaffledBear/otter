@@ -8,7 +8,9 @@
 # and adding them to this file.
 #
 
-from asserts import assertTrue
+import sys, traceback
+from asserts import assertTrue, OtterAssertError
+from functools import wraps
 
 
 class Otter:
@@ -24,8 +26,17 @@ class Otter:
 
     def run(self):
         for case in self.testCases.all:
-            self.testCases.all[case]()
+            self.execute_test(self.testCases.all[case])
         self.print_results()
+
+    def execute_test(self, test_case):
+        try:
+            test_case()
+        except:
+            print("Got an exception!", sys.exc_info()[0])
+            print("In test case: ", test_case.__name__)
+        #else:
+            
 
     def print_results(self):
         print("Number of Successes: {}".format(self.__successCount))
@@ -64,8 +75,21 @@ def make_test_list():
     testList = {}
 
     def list_builder(func):
-        testList[func.__name__] = func
-        return func
+        @wraps(func)
+        def wrapper_func(*args, **kwargs):
+            try:
+                func(*args, **kwargs)
+            except OtterAssertError as e:
+                otter.append_failed_test(e.args[0])
+                otter.increment_fail_count()
+            except:
+                otter.append_failed_test(func.__name__)
+                otter.increment_fail_count()
+            else:
+                otter.append_passed_test(func.__name__)
+                otter.increment_success_count()
+        testList[func.__name__] = wrapper_func
+        return wrapper_func
     list_builder.all = testList
     return list_builder
 
@@ -74,17 +98,17 @@ test = make_test_list()
 
 @test
 def case_1():
-    assertTrue(otter, True, "Case 1")
+    assertTrue(True, "Case 1")
 
 
 @test
 def case_2():
-    assertTrue(otter, False, "Case 2")
+    assertTrue(False, "Case 2")
 
 
 @test
 def case_3():
-    assertTrue(otter, True, "Case 3")
+    assertTrue(True, "Case 3")
 
 
 otter = Otter(test)

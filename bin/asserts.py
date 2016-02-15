@@ -12,71 +12,65 @@
 asserts.py defines the assert methods and the behaviors that are used by them.
 """
 
-
-def log_results(runner, result, testCase):
-    """
-    Logs the results of an assert.
-    """
-    if result:
-        runner.increment_success_count()
-        runner.append_passed_test(testCase)
-    else:
-        runner.increment_fail_count()
-        runner.append_failed_test(testCase)
-
+class OtterAssertError(Exception):
+    """Raised in the event of failed assertion"""
+    pass
 
 # TODO - Update comments for docstring use
-def assertTrue(runner, statusBool, testCase):
+def assertTrue(actual, message):
     """Checks whether the argument is the boolean value True."""
-    log_results(runner, statusBool, testCase)
+    if actual:
+        return
+    else:
+        raise OtterAssertError(message)
 
 
-def assertEqual(runner, expected, actual):
+def assertEqual(expected, actual):
     """Checks for equality of the two arguments."""
     pass
 
 
-def assertNotEqual(runner, expected, actual):
+def assertNotEqual(expected, actual):
     """Checks for inequality of the two arguments."""
     pass
 
 
-def assertFalse(runner, expected):
+def assertFalse(expected):
     """Checks whether the argument is the boolean value False."""
     pass
 
 
-def assertIn(runner, expected, collection):
+def assertIn(expected, collection):
     """Checks whether the argument is in the collection."""
     pass
 
 
-def assertNotIn(runner, expected, collection):
+def assertNotIn(expected, collection):
     """Checks whether the argument is not in the collection."""
     pass
 
 
-def assertIs(runner, expected, actual):
+def assertIs(expected, actual):
     """Checks whether the value is the expected."""
     pass
 
 
-def assertIsNot(runner, expected, actual):
+def assertIsNot(expected, actual):
     """Checks whether the value is not the expected."""
     pass
 
 
-def assertIsNone(runner, expected):
+def assertIsNone(expected):
     """Checks whether the argument is None."""
     pass
 
 
-def assertIsNotNone(runner, expected):
+def assertIsNotNone(expected):
     """Checks whether the argument is not None."""
     pass
 
 
-def assertRaises(runner, exception, func, *args):
+def assertRaises(exception, func, *args):
     """
     Checks whether the function 'func' raises an exception of the type
     exception'.

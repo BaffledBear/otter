@@ -55,14 +55,12 @@ class Otter:
         self.__failedTests.append(test)
 
 
-"""
-make_test_list will pick up any @test decorators and add the function to a.
-list. The list is then used as part of the Otter object instantiation to
-give a list of test cases to be run.
-"""
-
-
 def make_test_list():
+    """
+    make_test_list will pick up any @test decorators and add the function to a.
+    list. The list is then used as part of the Otter object instantiation to
+    give a list of test cases to be run.
+    """
     testList = {}
 
     def list_builder(func):

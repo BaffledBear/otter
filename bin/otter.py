@@ -8,8 +8,9 @@
 # and adding them to this file.
 #
 
-import sys, traceback
-from asserts import assertTrue, OtterAssertError
+import sys
+import traceback
+from asserts import assert_true, OtterAssertError
 from functools import wraps
 
 
@@ -35,8 +36,7 @@ class Otter:
         except:
             print("Got an exception!", sys.exc_info()[0])
             print("In test case: ", test_case.__name__)
-        #else:
-            
+        # else:
 
     def print_results(self):
         print("Number of Successes: {}".format(self.__successCount))
@@ -68,9 +68,9 @@ class Otter:
 
 def make_test_list():
     """
-    make_test_list will pick up any @test decorators and add the function to a.
-    list. The list is then used as part of the Otter object instantiation to
-    give a list of test cases to be run.
+    Builds a list of test cases based on the decorator that is storing an
+    instance of make_test_list(). The test cases are wrapped in a function that
+    will log the results of each test.
     """
     testList = {}
 
@@ -83,7 +83,10 @@ def make_test_list():
                 otter.append_failed_test(e.args[0])
                 otter.increment_fail_count()
             except:
-                otter.append_failed_test(func.__name__)
+                otter.append_failed_test(
+                                         "Unknown failure at {}".
+                                         format(func.__name__)
+                                         )
                 otter.increment_fail_count()
             else:
                 otter.append_passed_test(func.__name__)
@@ -98,17 +101,17 @@ test = make_test_list()
 
 @test
 def case_1():
-    assertTrue(True, "Case 1")
+    assert_true(True, "Case 1")
 
 
 @test
 def case_2():
-    assertTrue(False, "Case 2")
+    assert_true(False, "Case 2")
 
 
 @test
 def case_3():
-    assertTrue(True, "Case 3")
+    assert_true(True, "Case 3")
 
 
 otter = Otter(test)

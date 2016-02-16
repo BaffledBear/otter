@@ -12,12 +12,14 @@
 asserts.py defines the assert methods and the behaviors that are used by them.
 """
 
+
 class OtterAssertError(Exception):
     """Raised in the event of failed assertion"""
     pass
 
+
 # TODO - Update comments for docstring use
-def assertTrue(actual, message):
+def assert_true(actual, message):
     """Checks whether the argument is the boolean value True."""
     if actual:
         return

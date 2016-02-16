@@ -10,7 +10,7 @@
 
 import sys
 import traceback
-from asserts import assert_true, OtterAssertError
+from src.asserts import OtterAssertError
 from functools import wraps
 
 
@@ -34,6 +34,7 @@ class Otter:
         try:
             test_case()
         except:
+            traceback.print_exc(file=sys.stdout)
             print("Got an exception!", sys.exc_info()[0])
             print("In test case: ", test_case.__name__)
         # else:
@@ -66,7 +67,7 @@ class Otter:
         self.__failedTests.append(test)
 
 
-def make_test_list():
+def make_test_list(otter):
     """
     Builds a list of test cases based on the decorator that is storing an
     instance of make_test_list(). The test cases are wrapped in a function that
@@ -96,23 +97,8 @@ def make_test_list():
     list_builder.all = testList
     return list_builder
 
-test = make_test_list()
 
-
-@test
-def case_1():
-    assert_true(True, "Case 1")
-
-
-@test
-def case_2():
-    assert_true(False, "Case 2")
-
-
-@test
-def case_3():
-    assert_true(True, "Case 3")
-
-
-otter = Otter(test)
-otter.run()
+if __name__ == "__main__":
+    test = make_test_list()
+    otter = Otter(test)
+    otter.run()

@@ -1,0 +1,83 @@
+import sys
+import traceback
+from asserts import OtterAssertError
+
+
+class TestCase(object):
+
+    testList = []
+    __successCount = 0
+    __failCount = 0
+    __passedTests = []
+    __failedTests = []
+
+    def __init(self):
+        pass
+
+    def __init__(self, f):
+        self.func = f
+        self.__name__ = f.__name__
+        self.register_test(f)
+
+    def __call__(self, *args):
+        try:
+            print(self.func.__name__)
+            self.func(*args)
+        except OtterAssertError as e:
+            self.append_failed_test(e.args[0])
+            self.increment_fail_count()
+        except:
+            traceback.print_exc(file=sys.stdout)
+            self.append_failed_test(
+                "Unknown failure at {}\n{}\n".
+                format(self.func.__name__, sys.exc_info()[0])
+            )
+        else:
+            self.append_passed_test(self.func.__name__)
+            self.increment_success_count()
+
+    def __get__(self, obj, type=None):
+        if obj is None:
+            return self
+        new_func = self.func.__get__(obj, type)
+        return self.__class__(new_func)
+
+    def register_test(self, f):
+        self.testList.append({"name": f.__name__, "func": self})
+
+    def get_test_list(self):
+        return self.testList
+
+    def get_passed_tests(self):
+        return self.__passedTests
+
+    def get_failed_tests(self):
+        return self.__failedTests
+
+    def get_success_count(self):
+        return self.__successCount
+
+    def get_fail_count(self):
+        return self.__failCount
+
+    def increment_success_count(self):
+        self.__successCount += 1
+
+    def increment_fail_count(self):
+        self.__failCount += 1
+
+    def append_passed_test(self, test):
+        self.__passedTests.append(test)
+
+    def append_failed_test(self, test):
+        self.__failedTests.append(test)
+
+    def print_results():
+        print("Number of Successes: {}".format(TestCase.__successCount))
+        for case in TestCase.__passedTests:
+            print("\t{}".format(case))
+        print("")
+        print("Number of Failures:  {}".format(TestCase.__failCount))
+        for case in TestCase.__failedTests:
+            print("\t{}".format(case))
+

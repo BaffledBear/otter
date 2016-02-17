@@ -49,30 +49,37 @@ class Otter(object):
         logged as well.
         """
         try:
-            print("executing {}".format(test_case["name"]))
             test_case["func"](suite)
-            print()
         except OtterAssertError as e:
-            self.append_failed_test(
-                {
-                    "case": test_case["name"],
-                    "message": e.args[0],
-                    "trace": traceback.format_exc()
-                }
-            )
-            self.increment_fail_count()
+            if test_case["name"] in suite.expectedFailList:
+                self.log_success(test_case["name"])
+            else:
+                self.log_fail(
+                    {
+                        "case": test_case["name"],
+                        "message": e.args[0],
+                        "trace": traceback.format_exc()
+                    }
+                )
         except:
             traceback.print_exc(file=sys.stdout)
-            self.append_failed_test(
+            self.log_fail(
                 {
                     "case": test_case["name"],
                     "message": "Unknown failure",
                     "trace": traceback.format_exc()
                 })
-            self.increment_fail_count()
         else:
-            self.append_passed_test(test_case["name"])
-            self.increment_success_count()
+            if test_case["name"] in suite.expectedFailList:
+                self.log_fail(
+                    {
+                        "case": test_case["name"],
+                        "message": "Expected this to fail and it didn't.",
+                        "trace": "No traceback for successes"
+                    }
+                )
+            else:
+                self.log_success(test_case["name"])
 
     def print_results(self):
         """
@@ -98,17 +105,18 @@ class Otter(object):
         """Increments the count of failures"""
         self.__failCount += 1
 
-    def append_passed_test(self, test):
+    def log_success(self, test):
         """Adds a result to the list of successes"""
         self.__passedTests.append(test)
+        self.increment_success_count()
 
-    def append_failed_test(self, test):
+    def log_fail(self, test):
         """Adds a result to the list of failures"""
         self.__failedTests.append(test)
+        self.increment_fail_count()
 
 
 if __name__ == "__main__":
     testlist = [{"module": "test.assert_test", "class": "AssertTest"}]
     otter = Otter(testlist)
     otter.run()
-

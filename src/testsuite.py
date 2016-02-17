@@ -1,3 +1,6 @@
+from functools import wraps
+
+
 class TestCase(object):
 
     testList = []
@@ -7,7 +10,7 @@ class TestCase(object):
         self.__name__ = f.__name__
         self.register_test(f)
 
-    def __call(self):
+    def __call__(self):
         self.func()
 
     def __get__(self, obj, type=None):
@@ -19,11 +22,22 @@ class TestCase(object):
     def register_test(self, f):
         self.testList.append({"name": f.__name__, "func": f})
 
+    @staticmethod
+    def expected_failure(func):
+        @wraps(func)
+        def wrapper(self):
+            if func.__name__ not in self.expectedFailList:
+                self.expectedFailList.append(func.__name__)
+            func(self)
+        return wrapper
+
 
 class TestSuite(object):
 
     def __init__(self):
+        self.expectedFailList = []
         self.testList = TestCase.testList
+        self.set_up()
 
     def set_up(self):
         print("set_up() not overridden.")
@@ -33,3 +47,4 @@ class TestSuite(object):
 
     def tear_down(self):
         print("tear_down() not overridden.")
+

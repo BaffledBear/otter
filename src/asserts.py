@@ -7,9 +7,6 @@
 # the class as a whole.
 #
 
-import math
-
-
 """
 asserts.py defines the assert methods and the behaviors that are used by them.
 """
@@ -37,10 +34,7 @@ def assert_equal(expected, actual, message=None):
     Checks for equality of the two arguments. Raises OtterAssertError if
     the two arguments are not equal.
     """
-    if math.isnan(expected):
-        if expected.__eq__(actual):
-            return True
-    elif expected == actual:
+    if expected == actual:
         return True
     else:
         raise OtterAssertError(message)
@@ -51,10 +45,7 @@ def assert_not_equal(expected, actual, message=None):
     Checks for inequality of the two arguments. Raises OtterAssertError if
     the two arguments are equal.
     """
-    if math.isnan(expected):
-        if not expected.__eq__(actual):
-            return True
-    elif not expected == actual:
+    if not expected == actual:
         return True
     else:
         raise OtterAssertError(message)

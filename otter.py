@@ -84,7 +84,11 @@ class Otter(object):
         print("")
         print("Number of Failures:  {}".format(self.__failCount))
         for case in self.__failedTests:
-            print("\t{}".format(case))
+            print("****************************************")
+            print(case['case'], "\n****************************************")
+            print(case['trace'])
+            print(case['message'])
+            print("****************************************")
 
     def increment_success_count(self):
         """Increments the count of successes"""
@@ -103,10 +107,8 @@ class Otter(object):
         self.__failedTests.append(test)
 
 
-testlist = [{"module": "src.testsuite", "class": "TestSuite"}]
-
-
 if __name__ == "__main__":
+    testlist = [{"module": "test.assert_test", "class": "AssertTest"}]
     otter = Otter(testlist)
     otter.run()
 

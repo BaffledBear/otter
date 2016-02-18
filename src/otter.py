@@ -29,8 +29,10 @@ class Otter(object):
         either.
         """
         for suite in self.testSuiteInstanceList:
+            suite.set_up()
             for case in suite.get_test_list():
                 self.execute_test(suite, case)
+            suite.tear_down()
         self.print_results()
 
     def append_test_suite_list(self, suite):
@@ -97,26 +99,12 @@ class Otter(object):
             print(case['message'])
             print("****************************************")
 
-    def increment_success_count(self):
-        """Increments the count of successes"""
+    def log_success(self, test):
+        """Adds a result to the list of successes and increments successes."""
+        self.__passedTests.append(test)
         self.__successCount += 1
 
-    def increment_fail_count(self):
-        """Increments the count of failures"""
-        self.__failCount += 1
-
-    def log_success(self, test):
-        """Adds a result to the list of successes"""
-        self.__passedTests.append(test)
-        self.increment_success_count()
-
     def log_fail(self, test):
-        """Adds a result to the list of failures"""
+        """Adds a result to the list of failures and increments failures."""
         self.__failedTests.append(test)
-        self.increment_fail_count()
-
-
-if __name__ == "__main__":
-    testlist = [{"module": "test.assert_test", "class": "AssertTest"}]
-    otter = Otter(testlist)
-    otter.run()
+        self.__failCount += 1

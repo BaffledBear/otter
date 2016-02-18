@@ -6,17 +6,16 @@ from src.asserts import *
 class AssertTest(TestSuite):
 
     def set_up(self):
-        def test_func(a, b):
-            return a / b
-
-        def test_func2():
-            pass
-
-        print("success")
-        self.test_func = test_func
-        self.test_func2 = test_func2
+        self.test_func = lambda x, y: x / y
+        self.test_func2 = lambda x, y: x * y
         self.tObject = object()
         self.tObject2 = object()
+
+    def tear_down(self):
+        self.test_func = None
+        self.test_func2 = None
+        self.tObject = None
+        self.tObject2 = None
 
     @TestCase
     def test_assert_true(self):

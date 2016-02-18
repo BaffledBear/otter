@@ -37,7 +37,6 @@ class TestSuite(object):
     def __init__(self):
         self.expectedFailList = []
         self.testList = TestCase.testList
-        self.set_up()
 
     def set_up(self):
         print("set_up() not overridden.")

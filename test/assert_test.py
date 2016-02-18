@@ -20,10 +20,7 @@ class AssertTest(TestSuite):
     @TestCase
     def test_assert_true(self):
         assert_true(
-            assert_true(
-                True,
-                message="Excepted True and got False."
-            ),
+            assert_true(True),
             message="Excepted True and got False."
         )
 
@@ -33,29 +30,20 @@ class AssertTest(TestSuite):
             OtterAssertError,
             assert_true,
             False,
-            "Expected False and got False.",
             message="Expected False and got True."
         )
 
     @TestCase
     def test_assert_equal_int(self):
         assert_true(
-            assert_equal(
-                         1,
-                         1,
-                         "Expected equal and got inequality"
-                         ),
+            assert_equal(1, 1),
             message="Expected equal and got inequality"
         )
 
     @TestCase
     def test_assert_equal_str(self):
         assert_true(
-            assert_equal(
-                         "True",
-                         "True",
-                         "Expected equal and got inequality"
-                         ),
+            assert_equal("True", "True"),
             message="Expected equal and got inequality"
         )
 
@@ -66,7 +54,6 @@ class AssertTest(TestSuite):
             assert_equal,
             1,
             2,
-            "Expected exception and got none",
             message="Expected exception and got none"
         )
 
@@ -77,29 +64,20 @@ class AssertTest(TestSuite):
             assert_equal,
             "False",
             "Some Random Value",
-            "Expected exception and got none",
             message="Expected exception and got none"
         )
 
     @TestCase
     def test_assert_not_equal_int(self):
         assert_true(
-            assert_not_equal(
-                             1,
-                             2,
-                             "Expected equal and got inequality"
-                             ),
+            assert_not_equal(1, 2),
             message="Expected inequalilty and got equality"
         )
 
     @TestCase
     def test_assert_not_equal_str(self):
         assert_true(
-            assert_not_equal(
-                             "True",
-                             "Some random Value",
-                             "Expected inequality and got equality"
-                             ),
+            assert_not_equal("True", "Some random Value"),
             message="Expected equal and got inequality"
         )
 
@@ -110,7 +88,6 @@ class AssertTest(TestSuite):
             assert_not_equal,
             1,
             1,
-            "Expected exception and got none",
             message="Expected exception and got none"
         )
 
@@ -121,17 +98,13 @@ class AssertTest(TestSuite):
             assert_not_equal,
             "False",
             "False",
-            "Expected exception and got none",
             message="Expected exception and got none"
         )
 
     @TestCase
     def test_assert_false(self):
         assert_true(
-            assert_false(
-                         False,
-                         "Excepted False and got True."
-                         ),
+            assert_false(False),
             message="Excepted False and got True."
         )
 
@@ -141,40 +114,27 @@ class AssertTest(TestSuite):
             OtterAssertError,
             assert_false,
             True,
-            "Expected False and got False.",
             message="Expected False and got True."
         )
 
     @TestCase
     def test_assert_in_list(self):
         assert_true(
-            assert_in(
-                      "a",
-                      ["a", "b", "c"],
-                      "Expected Success"
-                      ),
+            assert_in("a", ["a", "b", "c"]),
             message="Expected True and got False"
         )
 
     @TestCase
     def test_assert_in_dict_list(self):
         assert_true(
-            assert_in(
-                      {"a": "b"},
-                      [{"a": "b"}, {"c": "d"}],
-                      "Test"
-                      ),
+            assert_in({"a": "b"}, [{"a": "b"}, {"c": "d"}]),
             message="Expected True and got False"
         )
 
     @TestCase
     def test_assert_in_key_in_dict(self):
         assert_true(
-            assert_in(
-                      "a",
-                      {"a": "b"},
-                      "Test"
-                      ),
+            assert_in("a", {"a": "b"}),
             message="Expected True and got False"
         )
 
@@ -185,7 +145,6 @@ class AssertTest(TestSuite):
             assert_in,
             "e",
             ["a", "b", "c"],
-            "Expected Failure",
             message="Expected exception and got none")
 
     @TestCase
@@ -195,7 +154,6 @@ class AssertTest(TestSuite):
             assert_in,
             {"c": "b"},
             [{"a": "b"}, {"c": "d"}],
-            "Expected Failure",
             message="Expected exception and got none")
 
     @TestCase
@@ -205,39 +163,26 @@ class AssertTest(TestSuite):
             assert_in,
             "b",
             {"a": "b"},
-            "Expected Failure",
             message="Expected exception and got none")
 
     @TestCase
     def test_assert_not_in_list(self):
         assert_true(
-            assert_not_in(
-                          "e",
-                          ["a", "b", "c"],
-                          "Expected Failure"
-                          ),
+            assert_not_in("e", ["a", "b", "c"]),
             message="Expected False and got True"
         )
 
     @TestCase
     def test_assert_not_in_dict_list(self):
         assert_true(
-            assert_not_in(
-                          {"c": "b"},
-                          [{"a": "b"}, {"c": "d"}],
-                          "Test"
-                          ),
+            assert_not_in({"c": "b"}, [{"a": "b"}, {"c": "d"}]),
             message="Expected False and got True"
         )
 
     @TestCase
     def test_assert_not_in_key_in_dict(self):
         assert_true(
-            assert_not_in(
-                          "b",
-                          {"a": "b"},
-                          "Test"
-                          ),
+            assert_not_in("b", {"a": "b"}),
             message="Expected True and got False"
         )
 
@@ -259,7 +204,6 @@ class AssertTest(TestSuite):
             assert_not_in,
             {"a": "b"},
             [{"a": "b"}, {"c": "d"}],
-            "Expected Failure",
             message="Expected exception and got none"
             )
 
@@ -270,17 +214,13 @@ class AssertTest(TestSuite):
             assert_not_in,
             "a",
             {"a": "b"},
-            "Expected Failure",
             message="Expected exception and got none"
             )
 
     @TestCase
     def test_assert_is_object(self):
         assert_true(
-            assert_is(
-                self.tObject,
-                self.tObject,
-                message="Expected True and got False."),
+            assert_is(self.tObject, self.tObject),
             message="Expected True and got False"
         )
 
@@ -291,18 +231,13 @@ class AssertTest(TestSuite):
             assert_is,
             self.tObject,
             self.tObject2,
-            "Expected Failure",
             message="Expected exception and got none."
         )
 
     @TestCase
     def test_assert_is_func(self):
         assert_true(
-            assert_is(
-                self.test_func,
-                self.test_func,
-                message="Expected True and got False."
-            ),
+            assert_is(self.test_func, self.test_func),
             message="Expected True and got False."
         )
 
@@ -313,18 +248,13 @@ class AssertTest(TestSuite):
             assert_is,
             self.test_func,
             self.test_func2,
-            "Expected  and got False.",
             message="Expected exception and got none."
         )
 
     @TestCase
     def test_assert_is_not_object(self):
         assert_true(
-            assert_is_not(
-                self.tObject,
-                self.tObject2,
-                message="Expected True and got False."
-            ),
+            assert_is_not(self.tObject, self.tObject2),
             message="Expected True and got False.")
 
     @TestCase
@@ -334,18 +264,13 @@ class AssertTest(TestSuite):
             assert_is_not,
             self.tObject,
             self.tObject,
-            "Expected Failure",
             message="Expected exception and got none."
         )
 
     @TestCase
     def test_assert_is_not_func(self):
         assert_true(
-            assert_is_not(
-                self.test_func,
-                self.test_func2,
-                message="Expected True and got False."
-            ),
+            assert_is_not(self.test_func, self.test_func2),
             message="Expected True and got False."
         )
 
@@ -356,17 +281,13 @@ class AssertTest(TestSuite):
             assert_is_not,
             self.test_func,
             self.test_func,
-            "Expected  and got False.",
             message="Expected exception and got none."
         )
 
     @TestCase
     def test_assert_is_none(self):
         assert_true(
-            assert_is_none(
-                None,
-                message="Expected True and got False."
-            ),
+            assert_is_none(None),
             message="Expected True and got False."
         )
 
@@ -376,17 +297,13 @@ class AssertTest(TestSuite):
             OtterAssertError,
             assert_is_none,
             self.test_func,
-            "Expected and got False.",
             message="Expected exception and got none."
         )
 
     @TestCase
     def test_assert_is_not_none_func(self):
         assert_true(
-            assert_is_not_none(
-                self.test_func,
-                message="Expected True and got False."
-            ),
+            assert_is_not_none(self.test_func),
             message="Expected True and got False."
         )
 
@@ -396,32 +313,24 @@ class AssertTest(TestSuite):
             OtterAssertError,
             assert_is_not_none,
             None,
-            "Expected  and got False.",
             message="Expected exception and got none."
         )
 
     @TestCase
     def test_assert_raises(self):
         assert_true(
-            assert_raises(
-                ZeroDivisionError,
-                self.test_func,
-                1,
-                0,
-                message="Expected True and got False"),
+            assert_raises(ZeroDivisionError, self.test_func, 1, 0),
             message="Expected True and got False."
         )
 
     @TestCase
-    @TestCase.expected_failure
     def test_assert_raises_fail(self):
         assert_raises(
-            ZeroDivisionError,
-            self.test_func,
-            1,
-            1,
-            message="Expected failure"
+                      OtterAssertError,
+                      assert_raises,
+                      ZeroDivisionError,
+                      self.test_func,
+                      1,
+                      1,
+                      message="Expected failure"
         )
-
-if __name__ == "__main__":
-    cases = AssertTest()

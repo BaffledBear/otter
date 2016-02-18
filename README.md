@@ -10,7 +10,7 @@ A TestCase is a single method that tests one unit of work. A test case is define
 @TestCase
 def test_some_behavior(self):
     pass
-...
+```
 
 A TestSuite is a collection of test cases that include similar set up and tear down steps. A TestSuite is defined as follows.
 ```python
@@ -29,7 +29,7 @@ class SuiteName(TestSuite):
 
     @TestCase
     def test_another_behavior(self):
-...
+```
 
 Any method in a TestSuite object will be run automatically. The set_up method will be run prior to the TestCases of each TestSuite and the tear_down will be run at the end of each TestSuite.
 
@@ -58,6 +58,6 @@ In instances where a test case is known to fail for any reason, the @TestCase.ex
 @TestCase.expected_failure
 def test_case_will_fail(self):
     return 1 / 0
-...
+```
 
 This will log the case as a failure and will set the message to "Expected Failure. This should be fixed." This decorator is used to mark cases that are known to fail to avoid confusion when testing while they are unresolved. Negative testing should use the assert_raises method in combination with another assert method as needed.

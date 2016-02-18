@@ -2,7 +2,6 @@ from datetime import datetime
 from enum import Enum
 from importlib import import_module
 from src.asserts import OtterAssertError
-from src.testsuite import TestSuite
 import traceback
 
 
@@ -19,40 +18,40 @@ class Otter(object):
     __failCount = 0
     __results = []
 
-    def __init__(self, testSuiteList):
+    def __init__(self, unitTestList):
         """
-        testSuiteList should be a list of dictionaries. Key "module" should
-        point to a string value of the location of a file with a TestSuite
+        unitTestList should be a list of dictionaries. Key "module" should
+        point to a string value of the location of a file with a UnitTest
         class. Key "class" should point to a string with the name of the class.
         """
         self.runStartTime = datetime.now()
-        self.testSuiteInstanceList = []
-        for suite in testSuiteList:
-            self.append_test_suite_list(suite)
+        self.unitTestInstanceList = []
+        for unit in unitTestList:
+            self.append_test_unit_list(unit)
 
     def run(self):
         """
-        Iterates through the instantiated list of TestSuites followed by their
+        Iterates through the instantiated list of UnitTests followed by their
         test cases and executes each case. Currently does not support arguments
         in the test cases. Setup and teardown methods are not called yet,
         either.
         """
-        for suite in self.testSuiteInstanceList:
-            suite.set_up()
-            for case in suite.get_test_list():
-                self.execute_test(suite, case)
-            suite.tear_down()
+        for unit in self.unitTestInstanceList:
+            unit.set_up()
+            for case in unit.get_test_list():
+                self.execute_test(unit, case)
+            unit.tear_down()
         self.print_results()
 
-    def append_test_suite_list(self, suite):
+    def append_test_unit_list(self, unit):
         """
-        Appends suite to the testSuiteInstanceList.
+        Appends unit to the unitTestInstanceList.
         """
-        module = import_module(suite["module"])
-        testSuite = getattr(module, suite["class"])
-        self.testSuiteInstanceList.append(testSuite())
+        module = import_module(unit["module"])
+        unitTest = getattr(module, unit["class"])
+        self.unitTestInstanceList.append(unitTest())
 
-    def execute_test(self, suite, test_case):
+    def execute_test(self, unit, test_case):
         """
         Executes the function assigned in test_case and calls the proper log
         methods as needed. OtterAssertErrors are caught here. The flow should
@@ -61,13 +60,13 @@ class Otter(object):
         """
         startTime = datetime.now()
         try:
-            test_case["func"](suite)
+            test_case["func"](unit)
         except OtterAssertError as e:
             runtime = self.get_runtime(startTime)
-            if test_case["name"] in suite.expectedFailList:
+            if test_case["name"] in unit.expectedFailList:
                 self.log_fail(
                     {
-                        "suite": suite,
+                        "unit": unit,
                         "case": test_case["name"],
                         "status": Status.FAIL,
                         "message": "Expected Failure. This should be fixed.",
@@ -78,7 +77,7 @@ class Otter(object):
             else:
                 self.log_fail(
                     {
-                        "suite": suite,
+                        "unit": unit,
                         "case": test_case["name"],
                         "status": Status.FAIL,
                         "message": e.args[0],
@@ -88,10 +87,10 @@ class Otter(object):
                 )
         except Exception as e:
             runtime = self.get_runtime(startTime)
-            if test_case["name"] in suite.expectedFailList:
+            if test_case["name"] in unit.expectedFailList:
                 self.log_fail(
                     {
-                        "suite": suite,
+                        "unit": unit,
                         "case": test_case["name"],
                         "status": Status.FAIL,
                         "message": "Expected Failure. This should be fixed.",
@@ -102,7 +101,7 @@ class Otter(object):
             else:
                 self.log_fail(
                     {
-                        "suite": suite,
+                        "unit": unit,
                         "case": test_case["name"],
                         "status": Status.ERR,
                         "message": e.__class__.__name__,
@@ -111,10 +110,10 @@ class Otter(object):
                     })
         else:
             runtime = self.get_runtime(startTime)
-            if test_case["name"] in suite.expectedFailList:
+            if test_case["name"] in unit.expectedFailList:
                 self.log_fail(
                     {
-                        "suite": suite,
+                        "unit": unit,
                         "case": test_case["name"],
                         "status": Status.FAIL,
                         "message": "Expected this to fail and it didn't.",
@@ -125,7 +124,7 @@ class Otter(object):
             else:
                 self.log_success(
                     {
-                        "suite": suite,
+                        "unit": unit,
                         "case": test_case["name"],
                         "status": Status.OK,
                         "message": "",
@@ -163,7 +162,7 @@ class Otter(object):
     def print_table(self):
         """Print the results in a table format"""
         print("\n    {0:10}  |  {1:39} | {2:4} | {3:10} | {4}".format(
-            "TEST SUITE",
+            "UNIT",
             "CASE",
             "STAT",
             "TIME (SEC)",
@@ -171,7 +170,7 @@ class Otter(object):
         print()
         for result in self.__results:
             print("    {0:10}  |  {1:39} | {2:4} |  {3:9} | {4}".format(
-                type(result["suite"]).__name__,
+                type(result["unit"]).__name__,
                 result["case"],
                 result["status"].name,
                 result["runtime"],

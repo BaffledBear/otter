@@ -1,9 +1,9 @@
-from src.testsuite import TestSuite, TestCase
+from src.testsuite import UnitTest, TestCase
 from src.asserts import *
 
 
 # TODO create list of classes to run that is passed to otter.run()
-class AssertTest(TestSuite):
+class AssertTest(UnitTest):
 
     def set_up(self):
         self.test_func = lambda x, y: x / y

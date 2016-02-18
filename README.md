@@ -12,10 +12,10 @@ def test_some_behavior(self):
     pass
 ```
 
-A TestSuite is a collection of test cases that include similar set up and tear down steps. A TestSuite is defined as follows.
+A UnitTest is a collection of test cases that include similar set up and tear down steps. A UnitTest is defined as follows.
 ```python
 ...
-class SuiteName(TestSuite):
+class SuiteName(UnitTest):
 
     def set_up(self):
         pass
@@ -31,7 +31,7 @@ class SuiteName(TestSuite):
     def test_another_behavior(self):
 ```
 
-Any method in a TestSuite object will be run automatically. The set_up method will be run prior to the TestCases of each TestSuite and the tear_down will be run at the end of each TestSuite.
+Any method in a UnitTest object will be run automatically. The set_up method will be run prior to the TestCases of each UnitTest and the tear_down will be run at the end of each UnitTest.
 
 ## Asserts & Fails
 Otter includes the following assert methods that can be used by importing them from the src.asserts module. The assert methods will raise the OtterAssertError if the condition of the assert is not met.

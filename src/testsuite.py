@@ -32,7 +32,7 @@ class TestCase(object):
         return wrapper
 
 
-class TestSuite(object):
+class UnitTest(object):
 
     def __init__(self):
         self.expectedFailList = []
@@ -46,4 +46,3 @@ class TestSuite(object):
 
     def tear_down(self):
         print("tear_down() not overridden.")
-

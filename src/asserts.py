@@ -29,6 +29,16 @@ def assert_true(actual, message=None):
         raise OtterAssertError(message)
 
 
+def assert_false(actual, message=None):
+    """
+    Checks whether the argument is the boolean value False. Raises
+    OtterAssertError if actual is True"""
+    if actual:
+        raise OtterAssertError(message)
+    else:
+        return True
+
+
 def assert_equal(expected, actual, message=None):
     """
     Checks for equality of the two arguments. Raises OtterAssertError if
@@ -49,16 +59,6 @@ def assert_not_equal(expected, actual, message=None):
         return True
     else:
         raise OtterAssertError(message)
-
-
-def assert_false(actual, message=None):
-    """
-    Checks whether the argument is the boolean value False. Raises
-    OtterAssertError if actual is True"""
-    if actual:
-        raise OtterAssertError(message)
-    else:
-        return True
 
 
 def assert_in(expected, collection, message=None):

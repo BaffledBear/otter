@@ -48,11 +48,6 @@
                 {{ form.body(cols="50", rows="20") }}
                 <input class="submit-btn" type="submit" value="Go">
             </form>
-            <!-- <form method="POST" action="/" class="config-screen" id="config-form">
-                <textarea id="config-space"></textarea>
-                <div  onclick="submit_work()">Start</div>
-                <input type="submit" value="Go">
-            </form>-->
         </div>
     </body>
 </html>

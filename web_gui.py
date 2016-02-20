@@ -46,7 +46,6 @@ def parse_units(args):
         })
     return unittests
 
-# {"module": "test.assert_test", "class": "AssertTest"}
 
 # Add this back when 404 layout is added.
 # @app.errorhandler(404)

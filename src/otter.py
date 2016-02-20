@@ -47,8 +47,16 @@ class Otter(object):
         """
         Appends unit to the unitTestInstanceList.
         """
-        module = import_module(unit["module"])
-        unitTest = getattr(module, unit["class"])
+        try:
+            module = import_module(unit["module"])
+        except ImportError:
+            print("Module {} not found.".format(unit["module"]))
+            return
+        try:
+            unitTest = getattr(module, unit["class"].rstrip())
+        except:
+            print("Unable to get class {}".format(unit["class"].rstrip()))
+            return
         self.unitTestInstanceList.append(unitTest())
 
     def execute_test(self, unit, test_case):
@@ -151,6 +159,9 @@ class Otter(object):
     def log_result(self, test):
         """Appends the test to the list of results"""
         self.__results.append(test)
+
+    def get_results(self):
+        return self.__results
 
     def get_runtime(self, startTime):
         """Get the duration and return a formated as seconds"""

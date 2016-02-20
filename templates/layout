@@ -1,0 +1,58 @@
+<!Doctype html>
+<html>
+    <head>
+        {% block head %}
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet" type="text/css">
+        <title>OTTER</title>
+        {% endblock %}
+        <script type="text/javascript">
+            function show_config() {
+                if (document.getElementById("config-hidden").style.visibility === "hidden") {
+                    document.getElementById("config-hidden").style.visibility="visible";
+                    document.getElementById("config-space").focus()
+                } else {
+                    document.getElementById("config-hidden").style.visibility="hidden";
+                }
+            }
+            function submit_work() {
+                document.getElementById("config-form").submit();
+            }
+        </script>
+    </head>
+    <body>
+        <div class="row header">
+            <div class="col-2 image"></div>
+            <div class="col-2 title">OTTER</div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="row">
+                    <div class="col-8"></div>
+                    <div class="col-2 btn" onclick="show_config()" id="config-btn">Config</div>
+                </div>
+            </div>
+        </div>
+        <div class="table">
+            <div class="row">
+                <div class="col-1 table-head" id="unit">Unit</div>
+                <div class="col-3 table-head" id="case">Case</div>
+                <div class="col-1 table-head" id="status">Status</div>
+                <div class="col-2 table-head" id="runtime">Runtime</div>
+                <div class="col-5 table-head" id="message">Message</div>
+            </div>
+            {% block content %}{% endblock %}
+        </div>
+        <div class="config-screen" id="config-hidden" style="visibility: hidden;">
+            <form method="GET" action="/">
+                {{ form.hidden_tag() }}
+                {{ form.body(cols="50", rows="20") }}
+                <input class="submit-btn" type="submit" value="Go">
+            </form>
+            <!-- <form method="POST" action="/" class="config-screen" id="config-form">
+                <textarea id="config-space"></textarea>
+                <div  onclick="submit_work()">Start</div>
+                <input type="submit" value="Go">
+            </form>-->
+        </div>
+    </body>
+</html>

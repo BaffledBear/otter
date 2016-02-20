@@ -63,3 +63,6 @@ target/
 
 #Swap Files
 .py~
+
+#venv
+venv/

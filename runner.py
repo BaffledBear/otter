@@ -2,7 +2,7 @@ import argparse
 from src.otter import Otter
 
 
-def parse_suites(args):
+def parse_units(args):
     unittests = []
     for arg in args['unittests']:
         splitarg = arg.split('.')
@@ -19,7 +19,7 @@ if __name__ == "__main__":
         'unittests',
         metavar='UnitTest',
         type=str,
-        nargs='+'
+        nargs='?'
     )
     parser.add_argument(
         '--format',
@@ -27,5 +27,9 @@ if __name__ == "__main__":
         required=False
     )
     args = vars(parser.parse_args())
-    otter = Otter(parse_suites(args))
-    otter.run()
+    if args['unittests'] is None:
+        import web_gui
+        web_gui.start_service()
+    else:
+        otter = Otter(parse_units(args))
+        otter.run()

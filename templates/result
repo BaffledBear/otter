@@ -9,11 +9,11 @@
         {% set rowtype = "one" if (count % 2 == 0) else "two" %}
         {% set count = count + 1 %}
         <div class="row table-data-{{ rowtype }}">
-            <div class="col-1 table-data-{{ rowtype }}" id="unit">{{ result["unit"].__class__.__name__ }}</div>
+            <div class="col-2 table-data-{{ rowtype }}" id="unit">{{ result["unit"].__class__.__name__ }}</div>
             <div class="col-3 table-data-{{ rowtype }}" id="case">{{ result["case"] }}</div>
             <div class="col-1 table-data-{{ rowtype }}" id="status">{{ result["status"].name }}</div>
             <div class="col-2 table-data-{{ rowtype }}" id="runtime">{{ result["runtime"] }}</div>
-            <div class="col-5 table-data-{{ rowtype }}" id="message">{{ result["message"] }}</div>
+            <div class="col-4 table-data-{{ rowtype }}" id="message">{{ result["message"] }}</div>
         </div>
     {% else %}
         <div class="row table-data-one">

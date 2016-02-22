@@ -34,11 +34,11 @@
         </div>
         <div class="table">
             <div class="row">
-                <div class="col-1 table-head" id="unit">Unit</div>
+                <div class="col-2 table-head" id="unit">Unit</div>
                 <div class="col-3 table-head" id="case">Case</div>
                 <div class="col-1 table-head" id="status">Status</div>
                 <div class="col-2 table-head" id="runtime">Runtime</div>
-                <div class="col-5 table-head" id="message">Message</div>
+                <div class="col-4 table-head" id="message">Message</div>
             </div>
             {% block content %}{% endblock %}
         </div>

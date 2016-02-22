@@ -1,5 +1,5 @@
-from src.testsuite import UnitTest, TestCase
 from src.asserts import *
+from src.unittest import UnitTest, TestCase
 
 
 # TODO create list of classes to run that is passed to otter.run()

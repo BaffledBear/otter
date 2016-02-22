@@ -1,7 +1,8 @@
 from datetime import datetime
 from enum import Enum
-from importlib import import_module
+from importlib import import_module, reload
 from src.asserts import OtterAssertError
+import sys
 import traceback
 
 
@@ -14,16 +15,15 @@ class Status(Enum):
 
 class Otter(object):
 
-    __successCount = 0
-    __failCount = 0
-    __results = []
-
     def __init__(self, unitTestList):
         """
         unitTestList should be a list of dictionaries. Key "module" should
         point to a string value of the location of a file with a UnitTest
         class. Key "class" should point to a string with the name of the class.
         """
+        self.__successCount = 0
+        self.__failCount = 0
+        self.__results = []
         self.runStartTime = datetime.now()
         self.unitTestInstanceList = []
         for unit in unitTestList:
@@ -41,21 +41,23 @@ class Otter(object):
             for case in unit.get_test_list():
                 self.execute_test(unit, case)
             unit.tear_down()
-        self.print_results()
 
     def append_test_unit_list(self, unit):
         """
         Appends unit to the unitTestInstanceList.
         """
         try:
-            module = import_module(unit["module"])
-        except ImportError:
-            print("Module {} not found.".format(unit["module"]))
+            if unit["module"] in sys.modules:
+                module = reload(sys.modules[unit["module"]])
+            else:
+                module = import_module(unit["module"])
+        except ImportError as e:
+            print(e)
             return
         try:
             unitTest = getattr(module, unit["class"].rstrip())
-        except:
-            print("Unable to get class {}".format(unit["class"].rstrip()))
+        except Exception as e:
+            print(e)
             return
         self.unitTestInstanceList.append(unitTest())
 
@@ -162,6 +164,9 @@ class Otter(object):
 
     def get_results(self):
         return self.__results
+
+    def set_test_list(self, unitList):
+        self.unitTestInstanceList = unitList
 
     def get_runtime(self, startTime):
         """Get the duration and return a formated as seconds"""

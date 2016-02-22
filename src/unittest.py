@@ -19,6 +19,9 @@ class TestCase(object):
         new_func = self.func.__get__(obj, type)
         return self.__class__(new_func)
 
+    def clear_test_list():
+        TestCase.testList.clear()
+
     def register_test(self, f):
         self.testList.append({"name": f.__name__, "func": f})
 
@@ -36,7 +39,8 @@ class UnitTest(object):
 
     def __init__(self):
         self.expectedFailList = []
-        self.testList = TestCase.testList
+        self.testList = TestCase.testList.copy()
+        TestCase.clear_test_list()
 
     def set_up(self):
         print("set_up() not overridden.")

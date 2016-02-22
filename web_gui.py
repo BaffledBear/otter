@@ -2,8 +2,8 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-from src.otter import Otter
 from flask_wtf import Form
+from src.otter import Otter
 from wtforms import StringField
 from wtforms.validators import DataRequired
 from wtforms.widgets import TextArea
@@ -32,7 +32,7 @@ def blog(name=None):
 
 
 def parse_units(args):
-    if args == "":
+    if args == "" or args is None:
         return []
     unittests = []
     for arg in args.split('\n'):

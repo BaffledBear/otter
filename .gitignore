@@ -61,8 +61,7 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
-#Swap Files
+#Other
 .py~
-
-#venv
 venv/
+commitmessage

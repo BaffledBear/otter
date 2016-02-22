@@ -11,7 +11,7 @@ For everything:
 For web service:
     Flask
     Flask-WTF
-```B
+```
 
 ## Usage
 A TestCase is a single method that tests one unit of work. A test case is defined as follows.
@@ -45,7 +45,7 @@ Any method in a UnitTest object will be run automatically. The set_up method wil
 
 To execute a test suite, start the application in the command line.
 
-```bash
+```
 optional arguments:
   -h, --help            show this help message and exit
   -c UnitTest [UnitTest ...]
@@ -58,7 +58,7 @@ optional arguments:
 
 For example, to run Otter in the command line using the unit test located at test.otter_demo.OtterDemo, from the otter director you would type:
 
-```bash
+```
 python3 otter.py -c test.otter_demo.OtterDemo
 ```
 To launch otter into a web service, type the following.

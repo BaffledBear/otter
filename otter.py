@@ -22,7 +22,7 @@ if __name__ == "__main__":
         parser_desc = "Otter is a basic unit test framework for Python 3.4+."
         parser = argparse.ArgumentParser(description=parser_desc,
                                          formatter_class=RawTextHelpFormatter)
-        ex_group = parser.add_mutually_exclusive_group()
+        ex_group = parser.add_mutually_exclusive_group(required=True)
         ex_group.add_argument(
             '-l',
             dest='unittests',
@@ -38,16 +38,13 @@ if __name__ == "__main__":
             '-i',
             metavar='Input File',
             help="Default: None; file containing a list of tests to run\n\
-            separted by row.\n\n",
-            required=False
+            separted by row.\n\n"
         )
         ex_group.add_argument(
             '-w',
-            '--webui',
             dest='use_gui',
             action='store_true',
-            help="Launch a webservice that can be reached via a browser.",
-            default=False
+            help="Launch a webservice that can be reached via a browser."
         )
         parser.add_argument(
             '-f',

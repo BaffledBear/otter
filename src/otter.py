@@ -170,7 +170,7 @@ class Otter(object):
         return timeStr
 
     def get_table(self):
-        """Print the results in a table format"""
+        """Return the results in a table format"""
         unitLength = 4
         caseLength = 4
         for result in self.__results:
@@ -202,6 +202,7 @@ class Otter(object):
         return table
 
     def get_csv_output(self):
+        """Return the results in a csv format"""
         csv = "Unit,Case,Status,Runtime(Sec),Message\n"
         for result in self.__results:
             csv += "{},{},{},{},{}\n".format(
@@ -217,7 +218,7 @@ class Otter(object):
 
     def print_results(self):
         """
-        Basic formatting is done and the results are printed to the screen.
+        Print the results in table format.
         """
         print()
         print(self.get_table())

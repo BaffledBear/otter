@@ -15,6 +15,14 @@ def parse_units(args):
         })
     return unittests
 
+
+def get_output(type, otter):
+    if type == "csv":
+        return otter.get_csv_output()
+    else:
+        return otter.get_table()
+
+
 if __name__ == "__main__":
     req_ver = (3, 4)
     cur_ver = sys.version_info
@@ -36,6 +44,7 @@ if __name__ == "__main__":
         )
         ex_group.add_argument(
             '-i',
+            dest='infile',
             metavar='Input File',
             help="Default: None; file containing a list of tests to run\n\
             separted by row.\n\n"
@@ -48,6 +57,7 @@ if __name__ == "__main__":
         )
         parser.add_argument(
             '-f',
+            dest='format',
             metavar='Format',
             help="Default: table; Decides whether to use table or csv for\n\
             output.\n\n",
@@ -55,6 +65,7 @@ if __name__ == "__main__":
         )
         parser.add_argument(
             '-o',
+            dest='outfile',
             metavar='Filename',
             help="Default: print to screen; location of file to write results",
             required=False
@@ -64,10 +75,10 @@ if __name__ == "__main__":
             import web_gui
             web_gui.start_service()
             pass
-        elif not args['i'] is None:
+        elif not args['infile'] is None:
             unittests = []
             try:
-                file = open(args["i"], 'r')
+                file = open(args["infile"], 'r')
                 for line in file:
                     unittests.append(line)
             except Exception as e:
@@ -82,28 +93,17 @@ if __name__ == "__main__":
         otter = Otter(parse_units(unittests))
         otter.run()
 
-        if args["f"] == "csv":
-            if not args["o"] is None:
-                try:
-                    file = open(args["o"], 'w')
-                    file.write(otter.get_csv_output())
-                except Exception as e:
-                    print("Unable to create file at given locaiton. ", e)
-                else:
-                    file.close()
+        output = get_output(args["format"], otter)
+        if not args["outfile"] is None:
+            try:
+                file = open(args["outfile"], 'w')
+                file.write(output)
+            except Exception as e:
+                print("Unable to create file at given locaiton. ", e)
             else:
-                print(otter.get_csv_output())
+                file.close()
         else:
-            if not args["o"] is None:
-                try:
-                    file = open(args["o"], 'w')
-                    file.write(otter.get_table())
-                except Exception as e:
-                    print("Unable to create file at given locaiton. ", e)
-                else:
-                    file.close()
-            else:
-                otter.print_results()
+            print(output)
 
     else:
         print("Your Python interpreter is too old. Version {}.{} is required.\

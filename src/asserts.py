@@ -100,7 +100,6 @@ def assert_type_not_in(expected, collection, message=None):
     Raises OtterAssertError if expected is in the collection.
     """
     for obj in collection:
-        print(obj, " ", type(obj))
         if type(obj) == expected:
             raise OtterAssertError(message)
     return True

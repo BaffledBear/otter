@@ -53,6 +53,8 @@ def parse_units(args):
         return []
     unittests = []
     for arg in args.split('\n'):
+        if arg == "":
+            continue
         splitarg = arg.split('.')
         if not len(splitarg) == 3:
             print("Invalid suite name. ", arg)

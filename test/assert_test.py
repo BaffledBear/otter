@@ -326,11 +326,45 @@ class AssertTest(UnitTest):
     @TestCase
     def test_assert_raises_fail(self):
         assert_raises(
-                      OtterAssertError,
-                      assert_raises,
-                      ZeroDivisionError,
-                      self.test_func,
-                      1,
-                      1,
-                      message="Expected failure"
+            OtterAssertError,
+            assert_raises,
+            ZeroDivisionError,
+            self.test_func,
+            1,
+            1,
+            message="Expected failure"
+        )
+
+    @TestCase
+    def test_assert_type_in(self):
+        assert_true(
+            assert_type_in(object, [0, 5, object(), "I'm a string."]),
+            message="Expected True and got False."
+        )
+
+    @TestCase
+    def test_assert_type_in_false(self):
+        assert_raises(
+            OtterAssertError,
+            assert_type_in,
+            UnitTest,
+            [0, 5, "I'm a string"],
+            message="Expected exception and got none."
+        )
+
+    @TestCase
+    def test_assert_type_not_in(self):
+        assert_true(
+            assert_type_not_in(UnitTest, [0, 5, object(), "I'm a string."]),
+            message="Expected True and got False."
+        )
+
+    @TestCase
+    def test_assert_type_not_in_false(self):
+        assert_raises(
+            OtterAssertError,
+            assert_type_not_in,
+            object,
+            [0, 5, object(), "I'm a string"],
+            message="Expected exception and got none."
         )

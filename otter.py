@@ -7,9 +7,7 @@ import sys
 
 def parse_units(args):
     unittests = []
-    print(args)
-    for arg in args['unittests']:
-        print(arg)
+    for arg in args:
         splitarg = arg.split('.')
         unittests.append({
             "module": "{}.{}".format(splitarg[0], splitarg[1]),
@@ -24,25 +22,26 @@ if __name__ == "__main__":
         parser_desc = "Otter is a basic unit test framework for Python 3.4+."
         parser = argparse.ArgumentParser(description=parser_desc,
                                          formatter_class=RawTextHelpFormatter)
-        parser.add_argument(
-            '-c',
+        ex_group = parser.add_mutually_exclusive_group()
+        ex_group.add_argument(
+            '-l',
             dest='unittests',
             metavar='UnitTest',
             help="Enter a list of Python classes in import format.\n\
-            (e.g. test.assert_test.AssertTest)",
+            (e.g. test.assert_test.AssertTest)\n\n",
             action='store',
             type=str,
             nargs='+',
             default=None
         )
-        parser.add_argument(
-            '-f',
-            metavar='Format',
-            help="Default: table; Decides whether to use table or csv for\n\
-            output.",
+        ex_group.add_argument(
+            '-i',
+            metavar='Input File',
+            help="Default: None; file containing a list of tests to run\n\
+            separted by row.\n\n",
             required=False
         )
-        parser.add_argument(
+        ex_group.add_argument(
             '-w',
             '--webui',
             dest='use_gui',
@@ -50,17 +49,64 @@ if __name__ == "__main__":
             help="Launch a webservice that can be reached via a browser.",
             default=False
         )
+        parser.add_argument(
+            '-f',
+            metavar='Format',
+            help="Default: table; Decides whether to use table or csv for\n\
+            output.\n\n",
+            required=False
+        )
+        parser.add_argument(
+            '-o',
+            metavar='Filename',
+            help="Default: print to screen; location of file to write results",
+            required=False
+        )
         args = vars(parser.parse_args())
         if args['use_gui'] is True:
             import web_gui
             web_gui.start_service()
             pass
+        elif not args['i'] is None:
+            unittests = []
+            try:
+                file = open(args["i"], 'r')
+                for line in file:
+                    unittests.append(line)
+            except Exception as e:
+                    print("Unable to open input file.", e)
+            else:
+                file.close()
         elif not args['unittests'] is None:
-            otter = Otter(parse_units(args))
-            otter.run()
-            otter.print_results()
+            unittests = args["unittests"]
         else:
             parser.parse_args(['-h'])
+
+        otter = Otter(parse_units(unittests))
+        otter.run()
+
+        if args["f"] == "csv":
+            if not args["o"] is None:
+                try:
+                    file = open(args["o"], 'w')
+                    file.write(otter.get_csv_output())
+                except Exception as e:
+                    print("Unable to create file at given locaiton. ", e)
+                else:
+                    file.close()
+            else:
+                print(otter.get_csv_output())
+        else:
+            if not args["o"] is None:
+                try:
+                    file = open(args["o"], 'w')
+                    file.write(otter.get_table())
+                except Exception as e:
+                    print("Unable to create file at given locaiton. ", e)
+                else:
+                    file.close()
+            else:
+                otter.print_results()
 
     else:
         print("Your Python interpreter is too old. Version {}.{} is required.\

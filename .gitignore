@@ -65,3 +65,4 @@ target/
 .py~
 venv/
 commitmessage
+testoutput/

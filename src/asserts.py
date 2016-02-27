@@ -83,6 +83,29 @@ def assert_not_in(expected, collection, message=None):
         return True
 
 
+def assert_type_in(expected, collection, message=None):
+    """
+    Checks whether the expected type is a collection of objects. Raises
+    OtterAssertError if expected is not present in the collection.
+    """
+    for obj in collection:
+        if isinstance(obj, expected):
+            return True
+    raise OtterAssertError(message)
+
+
+def assert_type_not_in(expected, collection, message=None):
+    """
+    Checks whether the expected type is not in the collection of objects.
+    Raises OtterAssertError if expected is in the collection.
+    """
+    for obj in collection:
+        print(obj, " ", type(obj))
+        if type(obj) == expected:
+            raise OtterAssertError(message)
+    return True
+
+
 def assert_is(expected, actual, message=None):
     """
     Checks whether the value is the expected. Raises

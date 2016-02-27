@@ -2,6 +2,7 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+from flask import send_file
 from flask_wtf import Form
 from src.otter import Otter
 from wtforms import StringField
@@ -24,11 +25,27 @@ def blog(name=None):
     otter.run()
     form = ConfigForm(csrf_enabled=False)
     content = otter.get_results()
+    try:
+        outcsv = open("results/out.csv", 'w')
+        outtxt = open("results/out.txt", 'w')
+        outcsv.write(otter.get_csv_output())
+        outtxt.write(otter.get_table())
+    except Exception as e:
+        print(e)
+    else:
+        outcsv.close()
+        outtxt.close()
     return render_template('result',
                            title=page_title,
                            body=content,
                            runtime="",
                            form=form)
+
+
+@app.route('/results/<path:filename>', methods=('GET', 'POST'))
+def get_file(filename):
+    fileloc = 'results/{}'.format(filename)
+    return send_file(fileloc)
 
 
 def parse_units(args):

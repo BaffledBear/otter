@@ -114,7 +114,7 @@ class Otter(object):
                         "unit": unit,
                         "case": test_case["name"],
                         "status": Status.ERR,
-                        "message": e.__class__.__name__,
+                        "message": e,
                         "trace": traceback.format_exc(),
                         "runtime": runtime
                     })
@@ -142,11 +142,9 @@ class Otter(object):
                     }
                 )
 
-    def print_results(self):
-        """
-        Basic formatting is done and the results are printed to the screen.
-        """
-        self.print_table()
+    def log_result(self, test):
+        """Appends the test to the list of results"""
+        self.__results.append(test)
 
     def log_success(self, test):
         """Adds a result to the list of results and increments successes."""
@@ -158,15 +156,11 @@ class Otter(object):
         self.log_result(test)
         self.__failCount += 1
 
-    def log_result(self, test):
-        """Appends the test to the list of results"""
-        self.__results.append(test)
-
-    def get_results(self):
-        return self.__results
-
     def set_test_list(self, unitList):
         self.unitTestInstanceList = unitList
+
+    def get_test_list(self):
+        return self.unitTestInstanceList
 
     def get_runtime(self, startTime):
         """Get the duration and return a formated as seconds"""
@@ -175,25 +169,59 @@ class Otter(object):
         timeStr = "{0:.{1}f}".format(runtime, 6)
         return timeStr
 
-    def print_table(self):
+    def get_table(self):
         """Print the results in a table format"""
-        print("\n    {0:10}  |  {1:39} | {2:4} | {3:10} | {4}".format(
+        unitLength = 4
+        caseLength = 4
+        for result in self.__results:
+            if len(type(result["unit"]).__name__) > unitLength:
+                unitLength = len(type(result["unit"]).__name__)
+            if len(result["case"]) > caseLength:
+                caseLength = len(result["case"])
+        table = " {0:{u}} | {1:{c}} | {2:4} | {3:10} | {4}\n".format(
             "UNIT",
             "CASE",
             "STAT",
             "TIME (SEC)",
-            "MESSAGE"))
-        print()
+            "MESSAGE",
+            u=unitLength,
+            c=caseLength
+            )
         for result in self.__results:
-            print("    {0:10}  |  {1:39} | {2:4} |  {3:9} | {4}".format(
+            table += " {0:{u}} | {1:{c}} | {2:4} |   {3:8} | {4}\n".format(
                 type(result["unit"]).__name__,
                 result["case"],
                 result["status"].name,
                 result["runtime"],
                 result["message"],
+                u=unitLength,
+                c=caseLength
             )
-            )
-        print(
-            "\nTotal runtime: {} seconds".format(
+        table += "\nTotal runtime: {} seconds".format(
                 self.get_runtime(self.runStartTime))
-        )
+        return table
+
+    def get_csv_output(self):
+        csv = "Unit,Case,Status,Runtime(Sec),Message\n"
+        for result in self.__results:
+            csv += "{},{},{},{},{}\n".format(
+                result["unit"].__class__.__name__,
+                result["case"],
+                result["status"].name,
+                result["runtime"],
+                None if result["message"] == "" else result["message"]
+                )
+        csv += "\nTotal runtime, {} seconds".format(
+                self.get_runtime(self.runStartTime))
+        return csv
+
+    def print_results(self):
+        """
+        Basic formatting is done and the results are printed to the screen.
+        """
+        print()
+        print(self.get_table())
+        print()
+
+    def get_results(self):
+        return self.__results

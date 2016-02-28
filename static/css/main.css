@@ -18,6 +18,7 @@ light brown - AF9687*/
     padding: 0;
     background-color: #332C27;
     color: rgb(238, 238, 238);
+    font-family: sans-serif;
 }
 
 .row {
@@ -90,8 +91,12 @@ light brown - AF9687*/
 .header {
     height: 75px;
     margin-top: 20px;
-    font-family: 'Montserrat', sans-serif;
     font-size: 25pt;
+}
+
+.title {
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 30px;
 }
 
 .table {
@@ -196,4 +201,9 @@ light brown - AF9687*/
     text-decoration: none;
     text-decoration: none;
     cursor: pointer;
+}
+
+.otter-image {
+    height: 75px;
+    float: right;
 }

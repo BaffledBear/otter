@@ -3,7 +3,7 @@
     <head>
         {% block head %}
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
         <title>OTTER</title>
         {% endblock %}
         <script type="text/javascript">
@@ -22,7 +22,7 @@
     </head>
     <body>
         <div class="row header">
-            <div class="col-2 image"></div>
+            <div class="col-2 image"><img class="otter-image" src="{{ url_for('static', filename='images/otter_v2.png') }}"></div>
             <div class="col-2 title">OTTER</div>
             <div class="col-4"></div>
             <div class="col-4">
@@ -48,7 +48,7 @@
         <div class="config-screen" id="config-hidden" style="visibility: hidden;">
             <form method="GET" action="/">
                 {{ form.hidden_tag() }}
-                {{ form.body(cols="50", rows="20") }}
+                {{ form.body(cols="50", rows="20", placeholder="List one unit per line.") }}
                 <input class="submit-btn" type="submit" value="Go">
             </form>
         </div>

@@ -1,3 +1,9 @@
 Unit,Case,Status,Runtime(Sec),Message
+LogFailTest,test_fail_count,OK,0.000006,None
+LogFailTest,test_failed_result,OK,0.000007,None
+LogFailTest,test_result_length,OK,0.000005,None
+LogSuccessTest,test_success_count,OK,0.000004,None
+LogSuccessTest,test_success_result,OK,0.000006,None
+LogSuccessTest,test_result_length,OK,0.000004,None
 
-Total runtime, 0.000535 seconds
+Total runtime, 0.001113 seconds

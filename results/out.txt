@@ -1,3 +1,9 @@
- UNIT | CASE | STAT | TIME (SEC) | MESSAGE
+ UNIT           | CASE                | STAT | TIME (SEC) | MESSAGE
+ LogFailTest    | test_fail_count     | OK   |   0.000006 | 
+ LogFailTest    | test_failed_result  | OK   |   0.000007 | 
+ LogFailTest    | test_result_length  | OK   |   0.000005 | 
+ LogSuccessTest | test_success_count  | OK   |   0.000004 | 
+ LogSuccessTest | test_success_result | OK   |   0.000006 | 
+ LogSuccessTest | test_result_length  | OK   |   0.000004 | 
 
-Total runtime: 0.000579 seconds
+Total runtime: 0.001167 seconds

@@ -12,11 +12,25 @@ class LogSuccessTest(UnitTest):
             [self.test_object]
 
         )
-        self.otter.run()
+        self.otter.log_success({"Success Test": "Success Test"})
 
     def tear_down(self):
         self.otter = None
 
     @TestCase
-    def test_log_success(self):
-        assert_true(True)
+    def test_success_count(self):
+        assert_true(self.otter.get_success_count() == 1)
+
+    @TestCase
+    def test_success_result(self):
+        assert_true(
+            self.otter.get_results()[0] == {"Success Test": "Success Test"},
+            message="Expected True and got False."
+        )
+
+    @TestCase
+    def test_result_length(self):
+        assert_true(
+            len(self.otter.get_results()) == 1,
+            message="Expected True and got False."
+        )

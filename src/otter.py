@@ -221,6 +221,14 @@ class Otter(object):
                 self.get_runtime(self.runStartTime))
         return csv
 
+    def get_fail_count(self):
+        """Return the failed test count."""
+        return self.__failCount
+
+    def get_success_count(self):
+        """Return the succeeded test count."""
+        return self.__successCount
+
     def print_results(self):
         """Print the results in table format."""
         print()

@@ -1,4 +1,3 @@
-# from flask import abort
 from flask import Flask
 from flask import render_template
 from flask import request
@@ -11,6 +10,7 @@ from wtforms.widgets import TextArea
 
 
 class ConfigForm(Form):
+    """Handles the Config form for the page."""
     body = StringField(widget=TextArea(), validators=[DataRequired()])
 
 
@@ -19,6 +19,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=('GET', 'POST'))
 def blog(name=None):
+    """Handles requests coming in to the page."""
     tests = request.args.get('body')
     page_title = "OTTER"
     otter = Otter(parse_units(tests))
@@ -44,16 +45,18 @@ def blog(name=None):
 
 @app.route('/results/<path:filename>', methods=('GET', 'POST'))
 def get_file(filename):
+    """Handles the links to the csv and text files."""
     fileloc = 'results/{}'.format(filename)
     return send_file(fileloc)
 
 
 def parse_units(args):
+    """Parse the tests that are entered in the config text area."""
     if args == "" or args is None:
         return []
     unittests = []
     for arg in args.split('\n'):
-        if arg == "":
+        if arg == "" or arg == "\r":
             continue
         splitarg = arg.split('.')
         if not len(splitarg) == 3:
@@ -64,12 +67,6 @@ def parse_units(args):
             "class": splitarg[2]
         })
     return unittests
-
-
-# Add this back when 404 layout is added.
-# @app.errorhandler(404)
-# def page_not_found(e):
-#     return render_template('page_not_found'), 404
 
 
 def start_service():

@@ -1,3 +1,0 @@
- UNIT                   | CASE                                | STAT | TIME (SEC) | MESSAGE
-
-Total runtime: 0.000000 seconds

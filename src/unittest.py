@@ -30,6 +30,11 @@ class TestCase(object):
 
     @staticmethod
     def expected_failure(func):
+        """
+        Provides a decorator for methods that are expected to fail. The only
+        change in behavior will be that the message is overwritten with a
+        generic message explaining that the method is known to fail.
+        """
         @wraps(func)
         def wrapper(self):
             if func.__name__ not in self.expectedFailList:

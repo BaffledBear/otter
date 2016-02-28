@@ -58,11 +58,13 @@ docs/_build/
 # PyBuilder
 target/
 
-#Ipython Notebook
+# Ipython Notebook
 .ipynb_checkpoints
 
-#Other
+# Other
 .py~
 venv/
 commitmessage
 testoutput/
+.csv
+.txt

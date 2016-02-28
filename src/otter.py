@@ -7,6 +7,7 @@ import traceback
 
 
 class Status(Enum):
+    """Enum of possible results for a test case."""
     OK = 0
     FAIL = 1
     ERR = 2
@@ -157,9 +158,13 @@ class Otter(object):
         self.__failCount += 1
 
     def set_test_list(self, unitList):
+        """
+        Set unitTestInstanceList manually. This is only used in unit testing.
+        """
         self.unitTestInstanceList = unitList
 
     def get_test_list(self):
+        """Return instances unitTestInstanceList."""
         return self.unitTestInstanceList
 
     def get_runtime(self, startTime):
@@ -217,12 +222,11 @@ class Otter(object):
         return csv
 
     def print_results(self):
-        """
-        Print the results in table format.
-        """
+        """Print the results in table format."""
         print()
         print(self.get_table())
         print()
 
     def get_results(self):
+        """Return the currently stored results collection."""
         return self.__results

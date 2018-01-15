@@ -100,8 +100,8 @@ Otter includes the following assert methods that can be used by importing them f
 * ```assert_not_equal(expected, actual)``` - Checks that expected and actual are not equal.
 * ```assert_in(expected, collection)``` - Checks that expected is in the provided collection.
 * ```assert_not_in(expected, collection)``` - Checks that expected is not in the provided collection.
-* ```def assert_type_in(expected, collection, message)``` - Checks that the expected object type is represented in the collection of objects provided.
-* ```def assert_type_not_in(expected, collection, message)``` - Checks that the expected object type is not represented in the collection of objects provided.
+* ```assert_type_in(expected, collection, message)``` - Checks that the expected object type is represented in the collection of objects provided.
+* ```assert_type_not_in(expected, collection, message)``` - Checks that the expected object type is not represented in the collection of objects provided.
 * ```assert_is(expected, actual, message)``` - Checks that expected and actual are the same object.
 * ```assert_is_not(expected, actual, message)``` - Checks that expected and actual are different objects.
 * ```assert_is_none(actual)``` - Checks that actual is equal to None.
